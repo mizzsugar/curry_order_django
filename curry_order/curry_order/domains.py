@@ -1,5 +1,6 @@
-from .models import Curry, Order
+from .models import Order
 from .forms import OrderForm
+
 
 class OrderDomain:
     def post_order(request_order):

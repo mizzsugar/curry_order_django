@@ -12,6 +12,7 @@ class Curry(models.Model):
     def get_by_id(cls, id):
         Curry.objects.get(id=id)
 
+
 class Order(models.Model):
     curry = models.ForeignKey(Curry, on_delete=models.CASCADE)
     amount = models.IntegerField()
@@ -23,7 +24,6 @@ class Order(models.Model):
     @classmethod
     def list(cls):
         return Order.objects.all()
-
 
     def has_ordered(self):
         return self.amount > 0
