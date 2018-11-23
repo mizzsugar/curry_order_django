@@ -12,6 +12,7 @@ def generate_curry_choice() -> Iterable[str]:
 
 
 class OrderForm(forms.Form):
+    user_name = forms.CharField(label='名前', max_length=20)
     curry = forms.ChoiceField(
         label='カレー',
         choices=generate_curry_choice,

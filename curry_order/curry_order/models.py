@@ -14,12 +14,13 @@ class Curry(models.Model):
 
 
 class Order(models.Model):
+    user_name = models.CharField(max_length=20, unique=True)
     curry = models.ForeignKey(Curry, on_delete=models.CASCADE)
     amount = models.IntegerField()
 
     @classmethod
-    def create(cls, curry):
-        Order.objects.create(curry_id=curry, amount=1)
+    def create(cls, user_name, curry):
+        Order.objects.create(user_name=user_name, curry_id=curry, amount=1)
 
     @classmethod
     def list(cls):
