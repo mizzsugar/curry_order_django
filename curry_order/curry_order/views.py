@@ -6,7 +6,6 @@ from .domains import OrderDomain
 from .exceptions import FormError
 
 
-
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
@@ -23,7 +22,6 @@ def item_list(request):
         try:
             OrderDomain.post_order(request.POST)
         except FormError as e:
-            print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
             return render(
                 request,
                 'item_list.html',

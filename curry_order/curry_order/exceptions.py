@@ -1,6 +1,3 @@
-import django.db
-
-
 class CurryAppError(Exception):
     pass
 
