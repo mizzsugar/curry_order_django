@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import OrderForm
-from .models import Order
+from .models import Curry, Order
 from .domains import OrderDomain
 from .exceptions import FormError
 
@@ -11,12 +11,13 @@ def index(request):
 
 
 def item_list(request):
-    list = Order.list()
+    order_list = Order.list()
+    curry_list = Curry.list()
     if request.method == 'GET':
         return render(
             request,
             'item_list.html',
-            {'form': OrderForm(), 'order_list': list}
+            {'form': OrderForm(), 'order_list': order_list, 'curry_list': curry_list}
         )
     else:
         try:
@@ -25,12 +26,12 @@ def item_list(request):
             return render(
                 request,
                 'item_list.html',
-                {'form': e.form, 'order_list': list}
+                {'form': e.form, 'order_list': order_list, 'curry_list': curry_list}
             )
         return render(
             request,
             'item_list.html',
-            {'form': OrderForm(), 'order_list': list}
+            {'form': OrderForm(), 'order_list': order_list, 'curry_list': curry_list}
         )
 
 

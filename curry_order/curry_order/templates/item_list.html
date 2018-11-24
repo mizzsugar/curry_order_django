@@ -9,7 +9,10 @@
     </div>
     <div class="form-group">
         <label>{{ form.curry.label }}</label>
-        {{ form.curry }}
+        {% for radio in form.curry %}
+        {{ radio.tag }}
+        <label>{{ radio.choice_label }}</label>
+        {% endfor %}
         {{ form.curry.errors }}
     </div>
     <button type="submit" >注文</button>

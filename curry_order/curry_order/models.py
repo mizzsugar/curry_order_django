@@ -4,6 +4,10 @@ from django.db import models
 class Curry(models.Model):
     name = models.CharField(max_length=30)
     price = models.IntegerField()
+    image = models.FilePathField()
+
+    # def __str__(self):
+    #     return self.name
 
     def is_over_0(self):
         return self.price > 0
@@ -11,6 +15,10 @@ class Curry(models.Model):
     @classmethod
     def get_by_id(cls, id):
         Curry.objects.get(id=id)
+
+    @classmethod
+    def list(cls):
+        return Curry.objects.all()
 
 
 class Order(models.Model):
