@@ -1,5 +1,6 @@
 <p>order form</p>
 
+{% load static %}
 <form action="/item_list" enctype="multipart/form-data" method="POST">
     {% csrf_token %}
     <div class="form-group">
