@@ -1,13 +1,26 @@
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
 from django.shortcuts import render
-from .forms import OrderForm
+from .forms import OrderEntryForm, OrderForm
 from .models import Order
-from .domains import OrderDomain
+from .domains import GroupEntryDomain, OrderDomain
 from .exceptions import FormError
 
 
 def order_entry(request):
-    return render(request, 'order_entry.html')
+    if request.method == 'GET':
+        return render(request, 'order_entry.html', {'form': OrderEntryForm()})
+    else:
+        try:
+            group = GroupEntryDomain.register_group(request.POST)
+        except FormError as e:
+            return render(request, 'order_entry.html', {'form': e.form})
+        return HttpResponseRedirect(reverse('show-group-url', args=(group.url_uuid,)))
+
+
+def show_group_url(request, group_uuid):
+    print(group_uuid)
+    return render(request, 'show_group_url.html')
 
 
 def item_list(request):

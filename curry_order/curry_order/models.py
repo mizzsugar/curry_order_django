@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 
 
@@ -24,6 +25,10 @@ class Curry(models.Model):
 class OrderEntry(models.Model):
     group = models.CharField(max_length=20, unique=True)
     url_uuid = models.TextField(unique=True)
+
+    @classmethod
+    def create(cls, group):
+        OrderEntry.objects.create(group=group, url_uuid=uuid.uuid4().hex)
 
 
 class Order(models.Model):

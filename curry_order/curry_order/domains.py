@@ -1,8 +1,17 @@
 import django.db
 
-from .models import Order
-from .forms import OrderForm
+from .models import OrderEntry, Order
+from .forms import OrderEntryForm, OrderForm
 from .exceptions import FormError
+
+
+class GroupEntryDomain:
+    def register_group(request_group):
+        form = OrderEntryForm(request_group)
+        form.is_valid()
+        group_name = form.cleaned_data['group']
+        group = OrderEntry.create(group_name)
+        return group
 
 
 class OrderDomain:
