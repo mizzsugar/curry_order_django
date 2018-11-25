@@ -28,7 +28,7 @@ class OrderEntry(models.Model):
 
     @classmethod
     def create(cls, group):
-        OrderEntry.objects.create(group=group, url_uuid=uuid.uuid4().hex)
+        return OrderEntry.objects.create(group=group, url_uuid=uuid.uuid4().hex)
 
     @classmethod
     def get_by_uuid(cls, url_uuid):

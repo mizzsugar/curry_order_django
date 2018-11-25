@@ -14,7 +14,7 @@ class GroupEntryDomain:
         return group
 
     def get_by_uuid(url_uuid):
-        group =  OrderEntry.get_by_uuid(url_uuid)
+        group = OrderEntry.get_by_uuid(url_uuid)
         return group
 
 
