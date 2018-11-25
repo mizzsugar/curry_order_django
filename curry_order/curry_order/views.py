@@ -11,12 +11,12 @@ def index(request):
 
 
 def item_list(request):
-    list = Order.list()
+    order_list = Order.list()
     if request.method == 'GET':
         return render(
             request,
             'item_list.html',
-            {'form': OrderForm(), 'order_list': list}
+            {'form': OrderForm(), 'order_list': order_list}
         )
     else:
         try:
@@ -25,12 +25,12 @@ def item_list(request):
             return render(
                 request,
                 'item_list.html',
-                {'form': e.form, 'order_list': list}
+                {'form': e.form, 'order_list': order_list}
             )
         return render(
             request,
             'item_list.html',
-            {'form': OrderForm(), 'order_list': list}
+            {'form': OrderForm(), 'order_list': order_list}
         )
 
 
