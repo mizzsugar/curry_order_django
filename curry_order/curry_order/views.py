@@ -6,8 +6,8 @@ from .domains import OrderDomain
 from .exceptions import FormError
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+def order_entry(request):
+    return render(request, 'order_entry.html')
 
 
 def item_list(request):
