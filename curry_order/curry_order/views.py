@@ -24,12 +24,12 @@ def show_group_url(request, group_uuid):
     return render(request, 'show_group_url.html', {'group': group})
 
 
-def item_list(request):
+def order_form(request):
     order_list = Order.list()
     if request.method == 'GET':
         return render(
             request,
-            'item_list.html',
+            'order_form.html',
             {'form': OrderForm(), 'order_list': order_list}
         )
     else:
@@ -38,15 +38,11 @@ def item_list(request):
         except FormError as e:
             return render(
                 request,
-                'item_list.html',
+                'order_form.html',
                 {'form': e.form, 'order_list': order_list}
             )
         return render(
             request,
-            'item_list.html',
+            'order_form.html',
             {'form': OrderForm(), 'order_list': order_list}
         )
-
-
-def order_list(request):
-    return render(request, 'order_list.html')
