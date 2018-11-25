@@ -19,8 +19,9 @@ def order_entry(request):
 
 
 def show_group_url(request, group_uuid):
+    group = GroupEntryDomain.get_by_uuid(url_uuid=group_uuid)
     print(group_uuid)
-    return render(request, 'show_group_url.html')
+    return render(request, 'show_group_url.html', {'group': group})
 
 
 def item_list(request):

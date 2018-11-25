@@ -13,6 +13,10 @@ class GroupEntryDomain:
         group = OrderEntry.create(group_name)
         return group
 
+    def get_by_uuid(url_uuid):
+        group =  OrderEntry.get_by_uuid(url_uuid)
+        return group
+
 
 class OrderDomain:
     def post_order(request_order):

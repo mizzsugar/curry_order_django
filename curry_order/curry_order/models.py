@@ -30,6 +30,10 @@ class OrderEntry(models.Model):
     def create(cls, group):
         OrderEntry.objects.create(group=group, url_uuid=uuid.uuid4().hex)
 
+    @classmethod
+    def get_by_uuid(cls, url_uuid):
+        return OrderEntry.objects.get(url_uuid=url_uuid)
+
 
 class Order(models.Model):
     event = models.ForeignKey(OrderEntry, on_delete=models.CASCADE)
