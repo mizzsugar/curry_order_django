@@ -1,7 +1,6 @@
 from typing import (
     Iterable,
     Tuple,
-NamedTuple,
 )
 
 from django import forms
@@ -16,15 +15,17 @@ def generate_curry_choice() -> Iterable[Tuple[int, str]]:
             self.image = image
             self.price = price
 
+        def __str__(self):
+            return self.name
+
     return (
-        (curry.id, MyLabel(curry.name, curry.image, curry.price))#(curry.name, curry.image))
+        (curry.id, MyLabel(curry.name, curry.image, curry.price))
         for curry in Curry.objects.all()
     )
 
+
 class ImageSelect(forms.widgets.RadioSelect):
-    # template_name = 'templates/widgets/curry_radio.html' # 自作
-    # option_template_name = 'templates/widgets/curry_radio_option.html'
-    template_name = 'widgets/curry_radio.html' # 自作
+    template_name = 'widgets/curry_radio.html'
     option_template_name = 'widgets/curry_radio_option.html'
 
 

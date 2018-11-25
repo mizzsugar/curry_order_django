@@ -11,6 +11,7 @@ class OrderDomain:
         form.is_valid()
         user_name = form.cleaned_data['user_name']
         selected_curry = form.cleaned_data['curry']
+        print(selected_curry)
         curry_id = int(selected_curry)
         try:
             Order.create(user_name, curry_id)
