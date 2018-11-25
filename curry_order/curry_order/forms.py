@@ -8,6 +8,10 @@ from django import forms
 from .models import Curry
 
 
+class OrderEntryForm(forms.Form):
+    group = forms.CharField(label='団体名', max_length=20)
+
+
 def generate_curry_choice() -> Iterable[Tuple[int, str]]:
     class MyLabel:
         def __init__(self, name: str, image: str, price: int) -> None:

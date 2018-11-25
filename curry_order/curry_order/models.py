@@ -21,7 +21,13 @@ class Curry(models.Model):
         return Curry.objects.all()
 
 
+class OrderEntry(models.Model):
+    group = models.CharField(max_length=20, unique=True)
+    url_uuid = models.TextField(unique=True)
+
+
 class Order(models.Model):
+    event = models.ForeignKey(OrderEntry, on_delete=models.CASCADE)
     user_name = models.CharField(max_length=20, unique=True)
     curry = models.ForeignKey(Curry, on_delete=models.CASCADE)
     amount = models.IntegerField()
