@@ -28,7 +28,10 @@ class OrderEntry(models.Model):
 
     @classmethod
     def create(cls, group):
-        return OrderEntry.objects.create(group=group, url_uuid=uuid.uuid4().hex)
+        return OrderEntry.objects.create(
+            group=group,
+            url_uuid=uuid.uuid4().hex
+        )
 
     @classmethod
     def get_by_uuid(cls, url_uuid):
@@ -47,12 +50,16 @@ class Order(models.Model):
 
     @classmethod
     def create(cls, event, user_name, curry):
-        Order.objects.create(event_id=event, user_name=user_name, curry_id=curry, amount=1)
+        Order.objects.create(
+            event_id=event,
+            user_name=user_name,
+            curry_id=curry,
+            amount=1
+        )
 
     @classmethod
     def list(cls):
         return Order.objects.all()
-
 
     @classmethod
     def group_order_list(cls, group):

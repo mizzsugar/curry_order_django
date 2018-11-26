@@ -21,6 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.order_entry),
     path('order_entry', views.order_entry),
-    path('show_group_url/<str:group_uuid>', views.show_group_url, name='show-group-url'),
+    path('show_group_url/<str:group_uuid>',
+         views.show_group_url,
+         name='show-group-url'),
     path('order_form/<str:group_uuid>', views.order_form),
 ]
