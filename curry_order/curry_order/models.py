@@ -42,12 +42,17 @@ class Order(models.Model):
     amount = models.IntegerField()
 
     @classmethod
-    def create(cls, user_name, curry):
-        Order.objects.create(user_name=user_name, curry_id=curry, amount=1)
+    def create(cls, event, user_name, curry):
+        Order.objects.create(event_id=event, user_name=user_name, curry_id=curry, amount=1)
 
     @classmethod
     def list(cls):
         return Order.objects.all()
+
+
+    @classmethod
+    def group_order_list(cls, group):
+        return Order.objects.filter(event=group)
 
     def has_ordered(self):
         return self.amount > 0

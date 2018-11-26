@@ -19,15 +19,20 @@ class GroupEntryDomain:
 
 
 class OrderDomain:
-    def post_order(request_order):
+    def get_order_by_group_uuid(group_uuid):
+        group = OrderEntry.get_by_uuid(group_uuid)
+        return Order.group_order_list(group)
+
+    def post_order(request_order, group_uuid):
         form = OrderForm(request_order)
         form.is_valid()
         user_name = form.cleaned_data['user_name']
         selected_curry = form.cleaned_data['curry']
-        print(selected_curry)
         curry_id = int(selected_curry)
+        group = OrderEntry.get_by_uuid(url_uuid=group_uuid)
+        group_id = group.id
         try:
-            Order.create(user_name, curry_id)
+            Order.create(group_id, user_name, curry_id)
         except django.db.IntegrityError:
             form.add_error('user_name', '既に登録しているユーザー名は登録できません')
             raise FormError(form)
