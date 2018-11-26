@@ -2,9 +2,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.shortcuts import render
 from .forms import OrderEntryForm, OrderForm
+from .domains import OrderEntryDomain, OrderDomain
+from .exceptions import FormError, DoesNotExistError
 from .models import OrderEntry
-from .domains import GroupEntryDomain, OrderDomain
-from .exceptions import FormError
 
 
 def order_entry(request):
@@ -12,19 +12,22 @@ def order_entry(request):
         return render(request, 'order_entry.html', {'form': OrderEntryForm()})
     else:
         try:
-            group = GroupEntryDomain.register_group(request.POST)
+            group = OrderEntryDomain.register_group(request.POST)
         except FormError as e:
             return render(request, 'order_entry.html', {'form': e.form})
         return HttpResponseRedirect(reverse('show-group-url', args=(group.url_uuid,)))
 
 
 def show_group_url(request, group_uuid):
-    group = GroupEntryDomain.get_by_uuid(url_uuid=group_uuid)
+    group = OrderEntryDomain.get_by_uuid(url_uuid=group_uuid)
     return render(request, 'show_group_url.html', {'group': group})
 
 
 def order_form(request, group_uuid):
-    group = OrderEntry.get_by_uuid(url_uuid=group_uuid) # TODO: 登録していないUUIDにアクセスされた際のException
+    try:
+        group = OrderEntryDomain.get_by_uuid(url_uuid=group_uuid) # TODO: GETでの登録していないUUIDにアクセスされた際のException
+    except DoesNotExistError:
+        return HttpResponse('Hello, DoesNotExist')
     order_list = OrderDomain.get_order_by_group_uuid(group_uuid=group_uuid) # TODO: 実際にグループごとに表示されるかテストする
     if request.method == 'GET':
         return render(
@@ -35,6 +38,8 @@ def order_form(request, group_uuid):
     else:
         try:
             OrderDomain.post_order(request.POST, group_uuid)
+        except DoesNotExistError:
+            return HttpResponse('hello, DoesNotExistError')
         except FormError as e:
             return render(
                 request,

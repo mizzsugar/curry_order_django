@@ -34,6 +34,10 @@ class OrderEntry(models.Model):
     def get_by_uuid(cls, url_uuid):
         return OrderEntry.objects.get(url_uuid=url_uuid)
 
+    @classmethod
+    def judge_existing_group(cls, url_uuid):
+        return OrderEntry.objects.filter(url_uuid=url_uuid).exists()
+
 
 class Order(models.Model):
     event = models.ForeignKey(OrderEntry, on_delete=models.CASCADE)

@@ -2,10 +2,10 @@ import django.db
 
 from .models import OrderEntry, Order
 from .forms import OrderEntryForm, OrderForm
-from .exceptions import FormError
+from .exceptions import FormError, DoesNotExistError
 
 
-class GroupEntryDomain:
+class OrderEntryDomain:
     def register_group(request_group):
         form = OrderEntryForm(request_group)
         form.is_valid()
@@ -14,8 +14,10 @@ class GroupEntryDomain:
         return group
 
     def get_by_uuid(url_uuid):
-        group = OrderEntry.get_by_uuid(url_uuid)
-        return group
+        if not OrderEntry.judge_existing_group(url_uuid=url_uuid):
+            raise DoesNotExistError
+        else:
+            return OrderEntry.get_by_uuid(url_uuid=url_uuid)
 
 
 class OrderDomain:
@@ -29,7 +31,10 @@ class OrderDomain:
         user_name = form.cleaned_data['user_name']
         selected_curry = form.cleaned_data['curry']
         curry_id = int(selected_curry)
-        group = OrderEntry.get_by_uuid(url_uuid=group_uuid)
+        try:
+            group = OrderEntry.get_by_uuid(url_uuid=group_uuid)
+        except django.core.exceptions.ObjectDoesNotExist:
+            raise DoesNotExistError
         group_id = group.id
         try:
             Order.create(group_id, user_name, curry_id)
