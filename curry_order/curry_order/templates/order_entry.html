@@ -1,0 +1,12 @@
+<h1>まとめてカレー注文さん</h1>
+
+{% load static %}
+<form action="/order_entry" enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>{{ form.group.label }}</label>
+      {{ form.group }}
+      {{ form.group.errors }}
+    </div>
+    <button type="submit">登録</button>
+</form>
