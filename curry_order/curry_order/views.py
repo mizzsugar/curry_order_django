@@ -72,6 +72,7 @@ def order_update_form(request, group_uuid, order_id):
     except DoesNotExistError:
         return HttpResponse('Hello, DoesNotExist')
     order_list = OrderDomain.get_order_by_group_uuid(group_uuid=group_uuid)
+    order_sum = OrderDomain.get_order_sum(group_uuid)
     update_order = OrderDomain.get_by_orderid(id=order_id)
     if request.method == 'GET':
         form = OrderForm(
@@ -85,7 +86,8 @@ def order_update_form(request, group_uuid, order_id):
             {'form': form,
              'order_list': order_list,
              'group': group,
-             'update_order': update_order
+             'update_order': update_order,
+             'order_sum': order_sum
              }
         )
     else:
@@ -98,7 +100,8 @@ def order_update_form(request, group_uuid, order_id):
                 {'form': e.form,
                  'order_list': order_list,
                  'group': group,
-                 'update_order': update_order
+                 'update_order': update_order,
+                 'order_sum': order_sum
                  }
             )
         form = OrderForm(
@@ -106,12 +109,14 @@ def order_update_form(request, group_uuid, order_id):
              'curry': update_order.curry.id
              }
         )
+        order_sum = OrderDomain.get_order_sum(group_uuid)
         return render(
             request,
             'edit_order.html',
             {'form': form,
              'order_list': order_list,
              'group': group,
-             'update_order': update_order
+             'update_order': update_order,
+             'order_sum': order_sum
              }
         )
