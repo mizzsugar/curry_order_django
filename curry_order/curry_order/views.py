@@ -4,7 +4,6 @@ from django.shortcuts import render
 from .forms import OrderEntryForm, OrderForm
 from .domains import OrderEntryDomain, OrderDomain
 from .exceptions import FormError, DoesNotExistError
-from .models import Curry, Order
 
 
 def order_entry(request):
@@ -36,7 +35,10 @@ def order_form(request, group_uuid):
         return render(
             request,
             'order_form.html',
-            {'form': OrderForm(), 'order_list': order_list, 'group': group, 'order_sum': order_sum}
+            {'form': OrderForm(),
+             'order_list': order_list,
+             'group': group, 'order_sum': order_sum
+             }
         )
     else:
         try:
@@ -47,12 +49,20 @@ def order_form(request, group_uuid):
             return render(
                 request,
                 'order_form.html',
-                {'form': e.form, 'order_list': order_list, 'group': group, 'order_sum': order_sum}
+                {'form': e.form,
+                 'order_list': order_list,
+                 'group': group,
+                 'order_sum': order_sum
+                 }
             )
         return render(
             request,
             'order_form.html',
-            {'form': OrderForm(), 'order_list': order_list, 'group': group, 'order_sum': order_sum}
+            {'form': OrderForm(),
+             'order_list': order_list,
+             'group': group,
+             'order_sum': order_sum
+             }
         )
 
 
@@ -64,20 +74,44 @@ def order_update_form(request, group_uuid, order_id):
     order_list = OrderDomain.get_order_by_group_uuid(group_uuid=group_uuid)
     update_order = OrderDomain.get_by_orderid(id=order_id)
     if request.method == 'GET':
-        form = OrderForm({'user_name': update_order.user_name, 'curry': update_order.curry.id})
+        form = OrderForm(
+                        {'user_name': update_order.user_name,
+                         'curry': update_order.curry.id
+                         }
+        )
         return render(
             request,
             'edit_order.html',
-            {'form': form, 'order_list': order_list, 'group': group, 'update_order': update_order}
+            {'form': form,
+             'order_list': order_list,
+             'group': group,
+             'update_order': update_order
+             }
         )
     else:
         try:
             update_order = OrderDomain.update_order(request.POST, update_order)
         except FormError as e:
-            return render(request, 'edit_order.html', {'form': e.form, 'order_list': order_list, 'group': group, 'update_order': update_order})
-        form = OrderForm({'user_name': update_order.user_name, 'curry': update_order.curry.id})
+            return render(
+                request,
+                'edit_order.html',
+                {'form': e.form,
+                 'order_list': order_list,
+                 'group': group,
+                 'update_order': update_order
+                 }
+            )
+        form = OrderForm(
+            {'user_name': update_order.user_name,
+             'curry': update_order.curry.id
+             }
+        )
         return render(
             request,
             'edit_order.html',
-            {'form': form, 'order_list': order_list, 'group': group, 'update_order': update_order}
+            {'form': form,
+             'order_list': order_list,
+             'group': group,
+             'update_order': update_order
+             }
         )

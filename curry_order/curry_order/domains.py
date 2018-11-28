@@ -61,7 +61,8 @@ class OrderDomain:
             raise FormError(form)
         return update_order
 
-    def get_order_sum(group_uuid):  #1こ目が加算されない
+    #  1こ目が加算されない
+    def get_order_sum(group_uuid):
         orders = OrderDomain.get_order_by_group_uuid(group_uuid)
         sum = 0
         for order in orders:
