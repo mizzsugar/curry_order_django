@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.order_entry),
@@ -24,5 +25,6 @@ urlpatterns = [
     path('show_group_url/<str:group_uuid>',
          views.show_group_url,
          name='show-group-url'),
-    path('order_form/<str:group_uuid>', views.order_form),
+    path('order_form/<str:group_uuid>', views.order_form, name='order-form'),
+    path('order_update_form/<str:group_uuid>/<int:order_id>', views.order_update_form)
 ]

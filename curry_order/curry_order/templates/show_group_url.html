@@ -1,3 +1,8 @@
-<h2>{{ group.group }}様</h2>
-<p>注文時には下記のURLをご利用ください。</p>
-<a href="/order_form/{{ group.url_uuid }}">order_form/{{ group.url_uuid }}</a>
+{% extends "navigation.html" %}
+{% block container %}
+<div class="container">
+    <h2>{{ group.group }}様</h2>
+    <p>注文時には下記のURLをご利用ください。</p>
+    <a href="/order_form/{{ group.url_uuid }}">order_form/{{ group.url_uuid }}</a>
+</div>
+{% endblock %}

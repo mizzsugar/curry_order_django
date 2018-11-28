@@ -65,5 +65,13 @@ class Order(models.Model):
     def group_order_list(cls, group):
         return Order.objects.filter(event=group)
 
+    @classmethod
+    def get_by_id(cls, id):
+        return Order.objects.get(pk=id)
+
+    @classmethod
+    def judge_existing_order(cls, id):
+        return Order.objects.filter(id=id).exists()
+
     def has_ordered(self):
         return self.amount > 0

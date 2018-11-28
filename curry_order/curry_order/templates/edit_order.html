@@ -4,7 +4,7 @@
     <h2>{{ group.group }}様 注文フォーム</h2>
 
     {% load static %}
-    <form action="/order_form/{{ group.url_uuid }}" enctype="multipart/form-data" method="POST">
+    <form action="/order_update_form/{{ group.url_uuid }}/{{ update_order.id }}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         <div class="form-group">
           <label>{{ form.user_name.label }}</label>

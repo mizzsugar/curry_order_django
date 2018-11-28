@@ -25,6 +25,12 @@ class OrderDomain:
         group = OrderEntry.get_by_uuid(group_uuid)
         return Order.group_order_list(group)
 
+    def get_by_orderid(id):
+        if not Order.judge_existing_order(id=id):
+            raise DoesNotExistError
+        else:
+            return Order.get_by_id(id=id)
+
     def post_order(request_order, group_uuid):
         form = OrderForm(request_order)
         form.is_valid()
@@ -41,3 +47,23 @@ class OrderDomain:
         except django.db.IntegrityError:
             form.add_error('user_name', '既に登録しているユーザー名は登録できません')
             raise FormError(form)
+
+    #  updateは未完成。なぜかinsertされる・・・・
+    def update_order(request_order, update_order):
+        form = OrderForm(request_order)
+        form.is_valid()
+        update_order.user_name = form.cleaned_data['user_name']
+        update_order.curry_id = form.cleaned_data['curry']
+        try:
+            update_order.save()
+        except django.db.IntegrityError:
+            form.add_error('user_name', '既に登録しているユーザー名は登録できません')
+            raise FormError(form)
+        return update_order
+
+    def get_order_sum(group_uuid):  #1こ目が加算されない
+        orders = OrderDomain.get_order_by_group_uuid(group_uuid)
+        sum = 0
+        for order in orders:
+            sum += order.curry.price
+        return sum
