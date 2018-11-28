@@ -37,7 +37,8 @@ def order_form(request, group_uuid):
             'order_form.html',
             {'form': OrderForm(),
              'order_list': order_list,
-             'group': group, 'order_sum': order_sum
+             'group': group, 'order_sum': order_sum,
+             'order_sum': order_sum
              }
         )
     else:
@@ -110,13 +111,16 @@ def order_update_form(request, group_uuid, order_id):
              }
         )
         order_sum = OrderDomain.get_order_sum(group_uuid)
-        return render(
-            request,
-            'edit_order.html',
-            {'form': form,
-             'order_list': order_list,
-             'group': group,
-             'update_order': update_order,
-             'order_sum': order_sum
-             }
+        # return render(
+        #     request,
+        #     'edit_order.html',
+        #     {'form': form,
+        #      'order_list': order_list,
+        #      'group': group,
+        #      'update_order': update_order,
+        #      'order_sum': order_sum
+        #      }
+        # )
+        return HttpResponseRedirect(
+            reverse('order-form', args=(group.url_uuid,))
         )

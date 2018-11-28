@@ -19,7 +19,7 @@
             {% endfor %}
             {{ form.curry.errors }}
         </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block">注文</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">登録</button>
     </form>
 
     <h2 class="order-sum">合計　{{ order_sum }}円</h2>
@@ -27,7 +27,7 @@
     <table border="1px">
         <tr class="header"><th>ユーザー名</th><td>品名</td><td>金額</td></tr>
         {% for order in order_list %}
-        <tr><th>{{ order.user_name }}</th><td>{{ order.curry.name }}</td><td>{{ order.curry.price }}</td></tr>
+        <tr><th><a href="/order_update_form/{{ group.url_uuid }}/{{ order.id }}">{{ order.user_name }}</a></th><td>{{ order.curry.name }}</td><td>{{ order.curry.price }}</td></tr>
         {% endfor %}
     </table>
 </div>
