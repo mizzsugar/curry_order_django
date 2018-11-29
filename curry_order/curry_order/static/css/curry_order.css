@@ -51,6 +51,10 @@ td, th{
     padding: 15px;
 }
 
+.btn-block{
+    margin-bottom: 40px;
+}
+
 .header{
     background-color: rgb(3, 67, 3);
     color: white;
