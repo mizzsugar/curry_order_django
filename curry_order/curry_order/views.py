@@ -124,3 +124,18 @@ def order_update_form(request, group_uuid, order_id):
         return HttpResponseRedirect(
             reverse('order-form', args=(group.url_uuid,))
         )
+
+def order_delete_form(request, group_uuid, order_id):
+    try:
+        group = OrderEntryDomain.get_by_uuid(url_uuid=group_uuid)
+    except DoesNotExistError:
+        return HttpResponseRedirect('/order_entry')  # 404
+    try:
+        OrderDomain.delete_order(order_id)
+    except DoesNotExistError:
+        return HttpResponseRedirect(
+        reverse('order-form', args=(group.url_uuid,))  # 404
+    )
+    return HttpResponseRedirect(
+        reverse('order-form', args=(group.url_uuid,))
+    )

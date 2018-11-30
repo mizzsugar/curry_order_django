@@ -48,7 +48,6 @@ class OrderDomain:
             form.add_error('user_name', '既に登録しているユーザー名は登録できません')
             raise FormError(form)
 
-    #  updateは未完成。なぜかinsertされる・・・・
     def update_order(request_order, update_order):
         form = OrderForm(request_order)
         form.is_valid()
@@ -61,7 +60,13 @@ class OrderDomain:
             raise FormError(form)
         return update_order
 
-    #  1こ目が加算されない
+    def delete_order(order_id):
+        try:
+            order = OrderDomain.get_by_orderid(id=order_id)
+        except DoesNotExistError:
+            raise DoesNotExistError
+        order.delete()
+
     def get_order_sum(group_uuid):
         orders = OrderDomain.get_order_by_group_uuid(group_uuid)
         sum = 0

@@ -28,5 +28,6 @@ urlpatterns = [
     path('order_form/<str:group_uuid>', views.order_form, name='order-form'),
     path('order_update_form/<str:group_uuid>/<int:order_id>',
          views.order_update_form
-         )
+         ),
+    path('order_delete_form/<str:group_uuid>/<int:order_id>', views.order_delete_form, name='order_delete_form')
 ]
