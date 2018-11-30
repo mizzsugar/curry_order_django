@@ -4,7 +4,7 @@
     <h2>{{ group.group }}様 注文フォーム</h2>
 
     {% load static %}
-    <form action="/order_form/{{ group.url_uuid }}" enctype="multipart/form-data" method="POST">
+    <form action="/order_update_form/{{ group.url_uuid }}/{{ update_order.id }}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         <div class="form-group">
           <label>{{ form.user_name.label }}</label>
@@ -19,7 +19,7 @@
             {% endfor %}
             {{ form.curry.errors }}
         </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block">登録</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">更新</button>
     </form>
 
     <h2 class="order-sum">合計　{{ order_sum }}円</h2>
@@ -30,5 +30,9 @@
         <tr><th><a href="/order_update_form/{{ group.url_uuid }}/{{ order.id }}">{{ order.user_name }}</a></th><td>{{ order.curry.name }}</td><td>{{ order.curry.price }}</td></tr>
         {% endfor %}
     </table>
+
+
+    <a href="/order_form/{{ group.url_uuid }}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">登録</a>
+
 </div>
 {% endblock %}

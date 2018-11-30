@@ -1,0 +1,65 @@
+.logo{
+  color:white;
+  font-size:35px;
+  padding-right:20px;
+}
+
+.logo:hover, .logo:focus{
+  color:white;
+  font-size:35px;
+  padding-right:20px;
+  text-decoration: none;
+}
+
+.navbar-custom {
+    background-color: rgb(3, 67, 3);
+    color:#fff;
+    border-radius:0;
+    border-color: rgb(3, 67, 3);
+    margin-bottom:20px;
+}
+
+.btn-primary {
+  background: rgb(3, 67, 3);
+  color: white;
+}
+
+
+.btn-primary:hover, .btn-primary:focus,
+.btn-primary:active, .btn-primary:active:focus, .btn-primary:active:hover, .btn-primary:active.focus,
+.btn-primary.active, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary,
+.open > .dropdown-toggle.btn-primary:hover,
+.open > .dropdown-toggle.btn-primary:focus,
+.open > .dropdown-toggle.btn-primary.focus,
+.btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus, .btn-primary[disabled].focus, fieldset[disabled] .btn-primary.focus {
+  background: rgb(3, 118, 3);
+  color: white;
+}
+
+table, .order-sum{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 20px;
+}
+
+td, th{
+    padding: 15px;
+}
+
+.btn-block{
+    margin-bottom: 40px;
+}
+
+.header{
+    background-color: rgb(3, 67, 3);
+    color: white;
+}
+
+.order-sum{
+    font-size: 40px;
+}

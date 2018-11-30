@@ -2,8 +2,10 @@ from typing import (
     Iterable,
     Tuple,
 )
+import dataclasses
 
 from django import forms
+
 
 from .models import Curry
 
@@ -13,11 +15,11 @@ class OrderEntryForm(forms.Form):
 
 
 def generate_curry_choice() -> Iterable[Tuple[int, str]]:
+    @dataclasses.dataclass
     class MyLabel:
-        def __init__(self, name: str, image: str, price: int) -> None:
-            self.name = name
-            self.image = image
-            self.price = price
+        name: str
+        image: str
+        price: int
 
         def __str__(self):
             return self.name

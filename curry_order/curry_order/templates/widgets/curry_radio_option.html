@@ -1,14 +1,14 @@
 {% if widget.wrap_label %}
 <label
 {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>{% endif %}
-<input
+<!--<h1>{{ widget.label.name }}</h1>-->
+<img src="{{ widget.label.image }}">
+    <input
     type="{{ widget.type }}"
     name="{{ widget.name }}"
     {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}
     {% include "django/forms/widgets/attrs.html" %}
 >
-<h1>{{ widget.label.name }}</h1>
-<img src="{{ widget.label.image }}">
 {% if widget.wrap_label %}
 </label>
 {% endif %}
