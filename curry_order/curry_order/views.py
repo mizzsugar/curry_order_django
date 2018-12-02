@@ -77,9 +77,9 @@ def order_update_form(request, group_uuid, order_id):
     update_order = OrderDomain.get_by_orderid(id=order_id)
     if request.method == 'GET':
         form = OrderForm(
-                        {'user_name': update_order.user_name,
-                         'curry': update_order.curry.id
-                         }
+            {'user_name': update_order.user_name,
+             'curry': update_order.curry.id
+             }
         )
         return render(
             request,
@@ -105,25 +105,10 @@ def order_update_form(request, group_uuid, order_id):
                  'order_sum': order_sum
                  }
             )
-        form = OrderForm(
-            {'user_name': update_order.user_name,
-             'curry': update_order.curry.id
-             }
-        )
-        order_sum = OrderDomain.get_order_sum(group_uuid)
-        # return render(
-        #     request,
-        #     'edit_order.html',
-        #     {'form': form,
-        #      'order_list': order_list,
-        #      'group': group,
-        #      'update_order': update_order,
-        #      'order_sum': order_sum
-        #      }
-        # )
         return HttpResponseRedirect(
             reverse('order-form', args=(group.url_uuid,))
         )
+
 
 def order_delete_form(request, group_uuid, order_id):
     try:
@@ -134,8 +119,8 @@ def order_delete_form(request, group_uuid, order_id):
         OrderDomain.delete_order(order_id)
     except DoesNotExistError:
         return HttpResponseRedirect(
-        reverse('order-form', args=(group.url_uuid,))  # 404
-    )
+            reverse('order-form', args=(group.url_uuid,))  # 404
+        )
     return HttpResponseRedirect(
         reverse('order-form', args=(group.url_uuid,))
     )
