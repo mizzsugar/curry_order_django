@@ -56,6 +56,10 @@ td, th{
     margin-bottom: 40px;
 }
 
+.btn-secondary{
+    float: right;
+}
+
 .header{
     background-color: rgb(3, 67, 3);
     color: white;
@@ -63,4 +67,18 @@ td, th{
 
 .order-sum{
     font-size: 40px;
+    padding-top: 40px;
+}
+
+.block{
+    display:block;
+    font-size: 20px;
+    font-weight: bold;
+    align: center;
+}
+
+.curry-select{
+    display: inline-block;
+    padding: 20px;
+    margin: 20px;
 }
