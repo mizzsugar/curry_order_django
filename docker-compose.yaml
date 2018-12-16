@@ -1,0 +1,19 @@
+version: '2'
+services:
+  db:
+    env_file: .env
+    image: postgres
+    # command: python3 -m http.server  # postgresが動いていない状態でpostgresの初期ファイルをコピーしたい
+    volumes:
+      - /home/mizuki/postgresql_data:/var/lib/postgresql_data  #  host:guest
+  web:
+    env_file: .env.web
+    build: .
+    # 　command: python3 -m http.server  # bashは標準入出力がないと自動的に終了になるため
+    command: python3 curry_order/manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    links:
+      - db
