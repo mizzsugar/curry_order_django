@@ -10,7 +10,11 @@ class OrderEntryDomain:
         form = OrderEntryForm(request_group)
         form.is_valid()
         group_name = form.cleaned_data['group']
-        group = OrderEntry.create(group_name)
+        try:
+            group = OrderEntry.create(group_name)
+        except django.db.IntegrityError:
+            form.add_error('group', '既に登録しているグループ名は登録できません')
+            raise FormError(form)
         return group
 
     def get_by_uuid(url_uuid):
