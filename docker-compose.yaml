@@ -12,9 +12,9 @@ services:
     command: python3 curry_order/manage.py migrate
     #   command: python3 curry_order/manage.py loaddata curry_order/dump.json
     #   command: python3 -m http.server  # bashは標準入出力がないと自動的に終了になるため
-    command: python3 curry_order/manage.py runserver 0.0.0.0:8000
+    #   command: python3 curry_order/manage.py runserver 0.0.0.0:8001
     ports:
-      - "8000:8000"
+      - "8000:8001"
     depends_on:
       - db
     links:
