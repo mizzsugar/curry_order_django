@@ -14,7 +14,7 @@ services:
     command: python3 -m http.server  # bashは標準入出力がないと自動的に終了になるため
     #   command: python3 curry_order/manage.py runserver 0.0.0.0:8001
     ports:
-      - "80001:8001"
+      - "8001:8001"
     depends_on:
       - db
     links:
