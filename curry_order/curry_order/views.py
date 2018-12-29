@@ -29,24 +29,14 @@ def order_form(request, group_uuid):
         group = OrderEntryDomain.get_by_uuid(url_uuid=group_uuid)
     except DoesNotExistError:
         return HttpResponse('Hello, DoesNotExist')
-    order_list = OrderDomain.get_order_by_group_uuid(group_uuid=group_uuid)
-    order_sum = OrderDomain.get_order_sum(group_uuid)
-    if request.method == 'GET':
-        return render(
-            request,
-            'order_form.html',
-            {'form': OrderForm(),
-             'order_list': order_list,
-             'group': group, 'order_sum': order_sum,
-             'order_sum': order_sum
-             }
-        )
-    else:
+    if request.method == 'POST':
         try:
             OrderDomain.post_order(request.POST, group_uuid)
         except DoesNotExistError:
             return HttpResponse('hello, DoesNotExistError')
         except FormError as e:
+            order_list = OrderDomain.get_order_by_group_uuid(group_uuid=group_uuid)
+            order_sum = OrderDomain.get_order_sum(group_uuid)
             return render(
                 request,
                 'order_form.html',
@@ -56,6 +46,8 @@ def order_form(request, group_uuid):
                  'order_sum': order_sum
                  }
             )
+        order_list = OrderDomain.get_order_by_group_uuid(group_uuid=group_uuid)
+        order_sum = OrderDomain.get_order_sum(group_uuid)
         return render(
             request,
             'order_form.html',
@@ -64,6 +56,18 @@ def order_form(request, group_uuid):
              'group': group,
              'order_sum': order_sum
              }
+        )
+    else:
+        order_list = OrderDomain.get_order_by_group_uuid(group_uuid=group_uuid)
+        order_sum = OrderDomain.get_order_sum(group_uuid)
+        return render(
+            request,
+            'order_form.html',
+            {'form': OrderForm(),
+             'order_list': order_list,
+             'group': group, 'order_sum': order_sum,
+             'order_sum': order_sum
+            }
         )
 
 
@@ -83,7 +87,7 @@ def order_update_form(request, group_uuid, order_id):
         )
         return render(
             request,
-            'edit_order.html',
+            'order_update_form.html',
             {'form': form,
              'order_list': order_list,
              'group': group,
@@ -97,7 +101,7 @@ def order_update_form(request, group_uuid, order_id):
         except FormError as e:
             return render(
                 request,
-                'edit_order.html',
+                'order_update_form.html',
                 {'form': e.form,
                  'order_list': order_list,
                  'group': group,
