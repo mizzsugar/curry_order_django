@@ -4,5 +4,5 @@ RUN mkdir workspace
 WORKDIR /workspace
 ADD . /workspace/
 RUN pip install -r requirements.txt
-EXPOSE 8000
+EXPOSE 8001
 CMD ["python3", "curry_order/manage.py", "runserver", "0.0.0.0:8001"]
