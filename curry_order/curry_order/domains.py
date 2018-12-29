@@ -1,3 +1,6 @@
+from typing import List
+
+
 import django.db
 
 from .models import OrderEntry, Order
