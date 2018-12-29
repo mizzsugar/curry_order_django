@@ -87,7 +87,7 @@ def order_update_form(request, group_uuid, order_id):
         )
         return render(
             request,
-            'edit_order.html',
+            'order_update_form.html',
             {'form': form,
              'order_list': order_list,
              'group': group,
@@ -101,7 +101,7 @@ def order_update_form(request, group_uuid, order_id):
         except FormError as e:
             return render(
                 request,
-                'edit_order.html',
+                'order_update_form.html',
                 {'form': e.form,
                  'order_list': order_list,
                  'group': group,
