@@ -28,12 +28,12 @@ def order_form(request, group_uuid):
     try:
         group = OrderEntryDomain.get_by_uuid(url_uuid=group_uuid)
     except DoesNotExistError:
-        return HttpResponse('Hello, DoesNotExist')
+        return HttpResponseRedirect('/url_does_not_exist')
     if request.method == 'POST':
         try:
             OrderDomain.post_order(request.POST, group_uuid)
         except DoesNotExistError:
-            return HttpResponse('hello, DoesNotExistError')
+            return HttpResponseRedirect('/url_does_not_exist')
         except FormError as e:
             order_list = OrderDomain.get_order_by_group_uuid(group_uuid=group_uuid)
             order_sum = OrderDomain.get_order_sum(group_uuid)
@@ -75,10 +75,13 @@ def order_update_form(request, group_uuid, order_id):
     try:
         group = OrderEntryDomain.get_by_uuid(url_uuid=group_uuid)
     except DoesNotExistError:
-        return HttpResponse('Hello, DoesNotExist')
+        return HttpResponseRedirect('/url_does_not_exist')
     order_list = OrderDomain.get_order_by_group_uuid(group_uuid=group_uuid)
     order_sum = OrderDomain.get_order_sum(group_uuid)
-    update_order = OrderDomain.get_by_orderid(id=order_id)
+    try:
+        update_order = OrderDomain.get_by_orderid(id=order_id)
+    except DoesNotExistError:
+        return HttpResponseRedirect('/url_does_not_exist')
     if request.method == 'GET':
         form = OrderForm(
             {'user_name': update_order.user_name,
@@ -118,7 +121,7 @@ def order_delete_form(request, group_uuid, order_id):
     try:
         group = OrderEntryDomain.get_by_uuid(url_uuid=group_uuid)
     except DoesNotExistError:
-        return HttpResponseRedirect('/order_entry')  # 404
+        return HttpResponseRedirect('/url_does_not_exist')  # 404
     try:
         OrderDomain.delete_order(order_id)
     except DoesNotExistError:
@@ -128,3 +131,7 @@ def order_delete_form(request, group_uuid, order_id):
     return HttpResponseRedirect(
         reverse('order-form', args=(group.url_uuid,))
     )
+
+
+def url_does_not_exist(request):
+    return render(request, '404.html')

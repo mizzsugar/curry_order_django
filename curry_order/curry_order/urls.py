@@ -29,5 +29,6 @@ urlpatterns = [
     path('order_update_form/<str:group_uuid>/<int:order_id>',
          views.order_update_form
          ),
-    path('order_delete_form/<str:group_uuid>/<int:order_id>', views.order_delete_form, name='order_delete_form')
+    path('order_delete_form/<str:group_uuid>/<int:order_id>', views.order_delete_form, name='order_delete_form'),
+    path('url_does_not_exist', views.url_does_not_exist)
 ]
