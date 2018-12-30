@@ -10,7 +10,7 @@
     {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}
     {% include "django/forms/widgets/attrs.html" %}
 >
-    {{ widget.label.name }}
+    {{ widget.label.name }} : {{ widget.label.price }}円
         </div>
 {% if widget.wrap_label %}
 </label>
