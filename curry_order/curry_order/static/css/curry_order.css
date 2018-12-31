@@ -82,3 +82,7 @@ td, th{
     padding: 20px;
     margin: 20px;
 }
+.back-button{
+    font-size: 1.2rem;
+    margin-bottom:20px;
+}
