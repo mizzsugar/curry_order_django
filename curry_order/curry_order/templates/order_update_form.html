@@ -1,7 +1,9 @@
 {% extends "navigation.html" %}
 {% block container %}
 <div class="container">
-    <h2>{{ group.group }}様 注文フォーム</h2>
+    <p><a href="/order_form/{{ group.url_uuid }}" class="back-button">戻る</a></p>
+
+    <p><h2>{{ group.group }}様 注文フォーム</h2></p>
 
     {% load static %}
     <form action="/order_update_form/{{ group.url_uuid }}/{{ update_order.id }}" enctype="multipart/form-data" method="POST">
@@ -26,8 +28,6 @@
     <a href="/order_delete_form/{{ group.url_uuid }}/{{ update_order.id }}" class="btn btn-secondary" role="button" aria-pressed="true">注文削除</a>
 
     <h2 class="order-sum">合計　{{ order_sum }}円</h2>
-
-    <a href="/order_form/{{ group.url_uuid }}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">登録</a>
 
     <table border="1px">
         <thead>
